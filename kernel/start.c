@@ -40,7 +40,7 @@ start()
 
   // configure Physical Memory Protection to give supervisor mode
   // access to all of physical memory.
-  w_pmpaddr0(0x3fffffffffffffull);
+  w_pmpaddr0(0x3fffffff);
   w_pmpcfg0(0xf);
 
   // ask for clock interrupts.
