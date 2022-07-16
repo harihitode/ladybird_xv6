@@ -18,8 +18,9 @@ exit:
         jal exit
 
 # char init[] = "/init\0";
+# add \0 for padding
 init:
-  .string "/init\0"
+  .string "/init\0\0"
 
 # char *argv[] = { init, 0 };
 .p2align 2
