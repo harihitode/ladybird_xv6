@@ -193,8 +193,8 @@ w_pmpaddr0(uint32 x)
   asm volatile("csrw pmpaddr0, %0" : : "r" (x));
 }
 
-#define SATP_SV39 (8L << 60)
-#define SATP_SV32 (1L << 31)
+// MSB show the mode; 0: bare, 1: sv32 (virtual)
+#define SATP_SV32 0x80000000L
 
 // use riscv's sv32 page table scheme.
 #define MAKE_SATP(pagetable) (SATP_SV32 | (((uint32)pagetable) >> 12))
