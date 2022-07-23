@@ -357,9 +357,5 @@ sfence_vma()
 #define PXSHIFT(level)  (PGSHIFT+(9*(level)))
 #define PX(level, va) ((((uint32) (va)) >> PXSHIFT(level)) & PXMASK)
 
-// one beyond the highest possible virtual address.
-// TODO for Sv32
-#define MAXVA 0xFFFFFFFF
-
 typedef uint32 pte_t;
 typedef uint32 *pagetable_t; // 512 PTEs
