@@ -26,7 +26,7 @@ char buf[BUFSZ];
 void
 copyin(char *s)
 {
-  uint64 addrs[] = { 0x80000000LL, 0xffffffffffffffff };
+  uint64 addrs[] = { 0x80000000L, 0xffffffffL };
 
   for(int ai = 0; ai < 2; ai++){
     uint64 addr = addrs[ai];
@@ -70,7 +70,7 @@ copyin(char *s)
 void
 copyout(char *s)
 {
-  uint64 addrs[] = { 0x80000000LL, 0xffffffffffffffff };
+  uint64 addrs[] = { 0x80000000L, 0xffffffffL };
 
   for(int ai = 0; ai < 2; ai++){
     uint64 addr = addrs[ai];
@@ -111,7 +111,7 @@ copyout(char *s)
 void
 copyinstr1(char *s)
 {
-  uint64 addrs[] = { 0x80000000LL, 0xffffffffffffffff };
+  uint64 addrs[] = { 0x80000000L, 0xffffffffL };
 
   for(int ai = 0; ai < 2; ai++){
     uint64 addr = addrs[ai];
@@ -241,12 +241,12 @@ rwsbrk()
   
   uint64 a = (uint64) sbrk(8192);
 
-  if(a == 0xffffffffffffffffLL) {
+  if(a == 0xffffffffL) {
     printf("sbrk(rwsbrk) failed\n");
     exit(1);
   }
   
-  if ((uint64) sbrk(-8192) ==  0xffffffffffffffffLL) {
+  if ((uint64) sbrk(-8192) ==  0xffffffffL) {
     printf("sbrk(rwsbrk) shrink failed\n");
     exit(1);
   }
@@ -2095,7 +2095,7 @@ sbrkbasic(char *s)
   }
   if(pid == 0){
     a = sbrk(TOOMUCH);
-    if(a == (char*)0xffffffffffffffffL){
+    if(a == (char*)0xffffffffL){
       // it's OK if this fails.
       exit(0);
     }
@@ -2684,7 +2684,7 @@ execout(char *s)
       // allocate all of memory.
       while(1){
         uint64 a = (uint64) sbrk(4096);
-        if(a == 0xffffffffffffffffLL)
+        if(a == 0xffffffffL)
           break;
         *(char*)(a + 4096 - 1) = 1;
       }
@@ -2734,7 +2734,7 @@ countfree()
     
     while(1){
       uint64 a = (uint64) sbrk(4096);
-      if(a == 0xffffffffffffffff){
+      if(a == 0xffffffff){
         break;
       }
 
