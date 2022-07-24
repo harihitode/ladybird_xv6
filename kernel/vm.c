@@ -69,18 +69,16 @@ kvminithart()
 // that corresponds to virtual address va.  If alloc!=0,
 // create any required page-table pages.
 //
-// The risc-v Sv39 scheme has three levels of page-table
-// pages. A page-table page contains 512 64-bit PTEs.
-// A 64-bit virtual address is split into five fields:
-//   39..63 -- must be zero.
-//   30..38 -- 9 bits of level-2 index.
-//   21..29 -- 9 bits of level-1 index.
-//   12..20 -- 9 bits of level-0 index.
+// The risc-v Sv32 scheme has two levels of page-table
+// pages. A page-table page contains 1024 32-bit PTEs.
+// A 32-bit virtual address is split into five fields:
+//   22..31 -- 10 bits of level-1 index.
+//   12..21 -- 10 bits of level-0 index.
 //    0..11 -- 12 bits of byte offset within the page.
 pte_t *
 walk(pagetable_t pagetable, uint64 va, int alloc)
 {
-  for(int level = 2; level > 0; level--) {
+  for(int level = 1; level > 0; level--) {
     pte_t *pte = &pagetable[PX(level, va)];
     if(*pte & PTE_V) {
       pagetable = (pagetable_t)PTE2PA(*pte);
