@@ -352,10 +352,10 @@ sfence_vma()
 
 #define PTE_FLAGS(pte) ((pte) & 0x3FF)
 
-// extract the three 9-bit page table indices from a virtual address.
-#define PXMASK          0x1FF // 9 bits
-#define PXSHIFT(level)  (PGSHIFT+(9*(level)))
+// extract the two physical page numbers from a virtual address.
+#define PXMASK          0x3FF // 10 bits
+#define PXSHIFT(level)  (PGSHIFT+(10*(level)))
 #define PX(level, va) ((((uint32) (va)) >> PXSHIFT(level)) & PXMASK)
 
 typedef uint32 pte_t;
-typedef uint32 *pagetable_t; // 512 PTEs
+typedef uint32 *pagetable_t; // 1024 PTEs
