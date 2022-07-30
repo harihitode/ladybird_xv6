@@ -64,16 +64,16 @@ timerinit()
   // each CPU has a separate source of timer interrupts.
   int id = r_mhartid();
 
-  // ask the CLINT for a timer interrupt.
-  int interval = 1000000; // cycles; about 1/10th second in qemu.
-  *(uint64*)CLINT_MTIMECMP(id) = *(uint64*)CLINT_MTIME + interval;
+  // ask for a timer interrupt.
+  int interval = 1000000; // cycles; about 1/10th second for ladybird
+  *(uint64*)ACLINT_MTIMECMP(id) = *(uint64*)ACLINT_MTIME + interval;
 
   // prepare information in scratch[] for timervec.
   // scratch[0..2] : space for timervec to save registers.
-  // scratch[3] : address of CLINT MTIMECMP register.
+  // scratch[3] : address of MTIMECMP register.
   // scratch[4] : desired interval (in cycles) between timer interrupts.
   uint64 *scratch = &timer_scratch[id][0];
-  scratch[3] = CLINT_MTIMECMP(id);
+  scratch[3] = ACLINT_MTIMECMP(id);
   scratch[4] = interval;
   w_mscratch((uint64)scratch);
 

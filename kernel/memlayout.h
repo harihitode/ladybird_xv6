@@ -4,7 +4,7 @@
 // based on qemu's hw/riscv/virt.c:
 //
 // 00001000 -- boot ROM, provided by qemu
-// 02000000 -- CLINT
+// 02000000 -- ACLINT
 // 0C000000 -- PLIC
 // 10000000 -- uart0 
 // 10001000 -- virtio disk 
@@ -25,10 +25,14 @@
 #define VIRTIO0 0x10001000
 #define VIRTIO0_IRQ 1
 
-// core local interruptor (CLINT), which contains the timer.
-#define CLINT 0x2000000L
-#define CLINT_MTIMECMP(hartid) (CLINT + 0x4000 + 8*(hartid))
-#define CLINT_MTIME (CLINT + 0xBFF8) // cycles since boot.
+// advanced core local interruptor (ACLINT)
+#define ACLINT 0x2000000L
+#define ACLINT_TIMER (ACLINT + 0x4000)
+#define ACLINT_MTIMECMP(hartid) (ACLINT_TIMER + 8*(hartid))
+// max. of supported harts by aclint is 4095
+// the last slot contains mtime, since boot
+// for ladybird mtime tick is 0.1us
+#define ACLINT_MTIME (ACLINT_MTIMECMP(4095))
 
 // qemu puts platform-level interrupt controller (PLIC) here.
 #define PLIC 0x0c000000L
