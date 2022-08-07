@@ -178,7 +178,7 @@ devintr()
 {
   uint32 scause = r_scause();
   // TODO use macro fo scause
-  if((scause & 0x8000000) &&
+  if((scause & 0x80000000) &&
      (scause & 0xff) == 9){
     // this is a supervisor external interrupt, via PLIC.
 
