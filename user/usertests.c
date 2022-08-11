@@ -2232,7 +2232,7 @@ kernmem(char *s)
 void
 MAXVAplus(char *s)
 {
-  volatile uint64 a = MAXVA;
+  volatile uint64 a = 0; // [TODO] our ladybird does not have MAXVA
   for( ; a != 0; a <<= 1){
     int pid;
     pid = fork();
